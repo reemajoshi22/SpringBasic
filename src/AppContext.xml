@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+	<import resource="classpath*:packaged/spring/mq-spring-config.xml" />
+	<import resource="classpath*:packaged/uidserver/token-replacer.xml" />
+
+	<context:component-scan base-package="com.spring.example" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:/application.properties" />
+	</bean> <!-- can use both for the propertplace holder -->
+
+	<!-- <context:property-placeholder location="application.properties" /> -->
+	<!-- below is the bean creation with property through setter methods -->
+
+	<!-- <bean id="inheritParentClass" class="com.spring.example.InheritenceExample"
+		abstract="true">
+		<property name="country" value="SingaporeParentBEan"></property>
+		<property name="type" value="123"></property>
+		<property name="action" value="derivedAction"></property>
+
+	</bean>
+
+	<bean id="employee" class="com.spring.example.Employee"
+		depends-on="details" parent="inheritParentClass">
+		<property name="emp_id" value="${EMP.ID}"></property>
+		<property name="emp_name" value="${EMP.NAME}"></property>
+		<property name="employee_dept" value="cse"></property>
+		<property name="employee_salary" value="100.10"></property>
+		<property name="details" ref="details"></property>
+
+
+	</bean>
+	<bean id="details" class="com.spring.example.EmployeeDetails">
+		<property name="age" value="20"></property>
+		<property name="sex" value="female"></property>
+	</bean>
+
+
+ -->
+
+	<!-- below is the bean creation with constructor argument -->
+	<bean id="employee" class="com.spring.example.Employee" autowire="byName"> 
+		<constructor-arg ref="details" />
+		<constructor-arg> <value>1</value> </constructor-arg> 
+		<constructor-arg> <value>reema</value> </constructor-arg> 
+		<constructor-arg> <value>cse</value> </constructor-arg> 
+		<constructor-arg> <value>100.01</value> </constructor-arg>
+		 </bean> 
+		 <bean id="details" class="com.spring.example.EmployeeDetails"> 
+		<property name="age" value="20"></property> 
+		<property name="sex" value="female"></property> 
+		</bean>
+
+	<!-- below is the bean creation with factory methods -->
+	<!-- <bean id="employee" class="com.spring.example.EmployeeFactory" factory-method="createEmplaoyee"> 
+		<constructor-arg value="reema"></constructor-arg> </bean> -->
+	<bean id="x" class="com.spring.example.X">
+	</bean>
+</beans>
